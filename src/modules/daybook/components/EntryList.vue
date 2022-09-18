@@ -13,6 +13,7 @@
             <Entry
                 v-for="entry in entriesByTerm"
                 :key="entry.id"
+                :entry="entry"
             />
         </div>
     </div>
