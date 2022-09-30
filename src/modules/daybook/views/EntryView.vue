@@ -71,6 +71,7 @@ import { mapGetters, mapActions } from 'vuex'
 import Swal from 'sweetalert2'
 
 import getDayMonthYear from '../helpers/getDayMonthYear'
+import uploadImage from '../helpers/uploadImage'
 
 export default {
     props: {
@@ -107,6 +108,8 @@ export default {
     methods: {
         ...mapActions('journal', ['updateEntry','createEntry','deleteEntry']),
         loadEntry() {
+            this.localImage = null;
+            this.file = null
 
             let entry;
 
@@ -129,6 +132,10 @@ export default {
                 allowOutsideClick: false
             })
             Swal.showLoading()
+
+            const picture = await uploadImage( this.file )
+            
+            this.entry.picture = picture
 
             if ( this.entry.id  ) {
                 // Actualizar
