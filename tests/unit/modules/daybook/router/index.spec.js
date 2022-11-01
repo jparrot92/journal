@@ -23,7 +23,8 @@ describe('Pruebas en el router module del Daybook', () => {
             ]
         })
 
-        
+        expect( (await daybookRouter.children[0].component()).default.name  ).toBe('NoEntrySelected')
+        expect( (await daybookRouter.children[1].component()).default.name  ).toBe('EntryView')
 
 
     })
