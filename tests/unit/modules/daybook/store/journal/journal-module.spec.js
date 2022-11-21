@@ -130,4 +130,22 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         expect( store.state.journal.entries.length ).toBe(7)
 
     })
+
+    test('actions: updateEntry', async() => {
+        
+        const store = createVuexStore( journalState )
+
+        const updatedEntry = {
+            id: '-NDF1PyxyfLxOtMc_1gW',
+            date : 1627077227978,
+            text : 'Hola mundo desde mock data',
+        }
+
+        await store.dispatch('journal/updateEntry', updatedEntry )
+
+        expect( store.state.journal.entries.length ).toBe(2)
+        expect( 
+            store.state.journal.entries.find( e => e.id === updatedEntry.id )
+        ).toEqual(updatedEntry)
+    })
 })
