@@ -127,7 +127,7 @@ describe('Vuex - Pruebas en el Journal Module', () => {
 
         await store.dispatch('journal/loadEntries')
 
-        expect( store.state.journal.entries.length ).toBe(7)
+        expect( store.state.journal.entries.length ).toBe(8)
 
     })
 
@@ -147,5 +147,38 @@ describe('Vuex - Pruebas en el Journal Module', () => {
         expect( 
             store.state.journal.entries.find( e => e.id === updatedEntry.id )
         ).toEqual(updatedEntry)
+    })
+
+    test('actions: createEntry deleteEntry', async() => {
+        
+        // createStore
+        const store = createVuexStore( journalState )
+
+        // newEntry = { date: date: 1664568863009, text: 'Nueva entrada desde las pruebas'}
+        const newEntry = { 
+            date: 1664568863009,
+            text: 'Nueva entrada desde las pruebas'
+        }
+
+        // dispatch de la acción createEntry
+        // obtener el id de la nueva entrada
+        const id = await store.dispatch('journal/createEntry', newEntry )
+
+        // el ID debe de ser un string
+        expect( typeof id ).toBe('string')
+
+        // la nueva entrada debe de existir en el state.journal.entries...
+        expect( 
+            store.state.journal.entries.find( e => e.id === id )
+        ).toBeTruthy()
+
+        // # Segunda parte
+        // dispatch deleteEntry
+        await store.dispatch('journal/deleteEntry', id )
+
+        // la nueva entrada NO debe de existir en el state.journal.entries...
+        expect( 
+            store.state.journal.entries.find( e => e.id === id )
+        ).toBeFalsy()
     })
 })
