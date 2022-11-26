@@ -28,7 +28,7 @@ export const updateEntry = async ({ commit }, entry) => {  // entry debe de ser 
     const { date, picture, text } = entry
     const dataToSave = { date, picture, text }
 
-    const resp = await journalApi.put( `/entries/${ entry.id }.json`, dataToSave )
+    await journalApi.put( `/entries/${ entry.id }.json`, dataToSave )
 
     // Commit de una mutation -> updateEntry
     commit('updateEntry', { ...entry })
