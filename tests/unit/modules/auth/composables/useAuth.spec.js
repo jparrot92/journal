@@ -42,4 +42,59 @@ describe('Pruebas en useAuth', () => {
 
     })
 
+    test('login exitoso', async() => {
+        
+        const { loginUser } = useAuth()
+
+        const loginForm = { email: 'jaume@gmail.com', password: '123456' }
+        mockStore.dispatch.mockReturnValue({ ok: true })
+
+        const resp = await loginUser( loginForm )
+
+        expect(mockStore.dispatch).toHaveBeenCalledWith('auth/signInUser', loginForm)
+        expect(resp).toEqual({ ok: true })
+
+    })
+
+    test('login fallido', async() => {
+        
+        const { loginUser } = useAuth()
+
+        const loginForm = { email: 'jaume@gmail.com', password: '123456' }
+        mockStore.dispatch.mockReturnValue({ ok: false, message: 'EMAIL/PASSWORD do not exist' })
+
+        const resp = await loginUser( loginForm )
+
+        expect(mockStore.dispatch).toHaveBeenCalledWith('auth/signInUser', loginForm)
+        expect( resp ).toEqual({ ok: false, message: 'EMAIL/PASSWORD do not exist' })
+
+    })
+
+    test('login fallido', async() => {
+        
+        const { loginUser } = useAuth()
+
+        const loginForm = { email: 'jaume@gmail.com', password: '123456' }
+        mockStore.dispatch.mockReturnValue({ ok: false, message: 'EMAIL/PASSWORD do not exist' })
+
+        const resp = await loginUser( loginForm )
+
+        expect(mockStore.dispatch).toHaveBeenCalledWith('auth/signInUser', loginForm)
+        expect( resp ).toEqual({ ok: false, message: 'EMAIL/PASSWORD do not exist' })
+
+    })
+
+    test('checkAuthStatus', async() => {
+        
+        const { checkAuthStatus } = useAuth()
+
+        mockStore.dispatch.mockReturnValue({ ok: true })
+
+        const resp = await checkAuthStatus()
+        
+        expect( mockStore.dispatch ).toHaveBeenCalledWith('auth/checkAuthentication')
+        expect( resp ).toEqual({ ok: true })
+
+    })
+
 })
