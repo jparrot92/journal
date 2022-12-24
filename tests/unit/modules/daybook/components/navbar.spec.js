@@ -1,16 +1,12 @@
 import { shallowMount } from '@vue/test-utils'
-import { createRouter, createWebHashHistory } from 'vue-router'
 
-import { routes } from "@/router"
 import NavBar from '@/modules/daybook/components/NavBar.vue'
 import createVuexStore from '../../../mock-data/mock-store'
+import createVueRouter from '../../../mock-data/mock-router'
 
 describe('Pruebas en el Navbar component', () => {
 
-    const router = createRouter({
-        history: createWebHashHistory(),
-        routes: routes,
-    })
+    const router = createVueRouter()
 
     const store = createVuexStore({
         user: {
