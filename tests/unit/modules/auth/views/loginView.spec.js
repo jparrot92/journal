@@ -44,7 +44,7 @@ describe('Pruebas en el LoginView Component', () => {
 
         const wrapper = shallowMount( LoginView, {
             global: {
-                plugins: [ store ]
+                plugins: [ store, router ]
             }
         })
 
