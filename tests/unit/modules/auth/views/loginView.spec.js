@@ -14,7 +14,13 @@ jest.mock('sweetalert2', () => ({
 
 describe('Pruebas en el LoginView Component', () => {
 
-    const router = createVueRouter()
+    const router = createVueRouter([
+        {
+          path: '/',
+          name: 'no-entry',
+          component: () => import(/* webpackChunkName: "daybook-no-entry" */ '@/modules/daybook/views/NoEntrySelected.vue'),
+        }
+    ])
     
     const store = createVuexStore({
         status: 'not-authenticated', // 'authenticated','not-authenticated', 'authenticating'

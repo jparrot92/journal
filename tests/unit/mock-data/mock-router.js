@@ -1,16 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import router from "@/router"
-
-const createVueRouter = () => 
+const createVueRouter = (routes) => 
     createRouter({
         history: createWebHashHistory(),
-        routes: [
-            {
-              path: '/',
-              name: 'no-entry',
-              component: () => import(/* webpackChunkName: "daybook-no-entry" */ '@/modules/daybook/views/NoEntrySelected.vue'),
-            }],
+        routes,
     })
 
 export default createVueRouter

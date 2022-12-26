@@ -1,12 +1,15 @@
 import { shallowMount } from '@vue/test-utils'
 
 import NavBar from '@/modules/daybook/components/NavBar.vue'
+
+import router from "@/router"
+
 import createVuexStore from '../../../mock-data/mock-store'
 import createVueRouter from '../../../mock-data/mock-router'
 
 describe('Pruebas en el Navbar component', () => {
 
-    const router = createVueRouter()
+    const routerVue = createVueRouter(router.options.routes)
 
     const store = createVuexStore({
         user: {
@@ -22,7 +25,7 @@ describe('Pruebas en el Navbar component', () => {
         
         const wrapper = shallowMount( NavBar, {
             global: {
-                plugins: [ store, router ]
+                plugins: [ store, routerVue ]
             }
         })
 
@@ -34,11 +37,11 @@ describe('Pruebas en el Navbar component', () => {
         
         const wrapper = shallowMount( NavBar, {
             global: {
-                plugins: [ store, router ]
+                plugins: [ store, routerVue ]
             }
         })
 
-        const push = jest.spyOn(router, 'push')
+        const push = jest.spyOn(routerVue, 'push')
         await wrapper.find('button').trigger('click')
 
         expect(push).toHaveBeenCalledWith({"name": "login"})
