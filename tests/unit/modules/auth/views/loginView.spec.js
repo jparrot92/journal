@@ -53,4 +53,26 @@ describe('Pruebas en el LoginView Component', () => {
         expect( Swal.fire ).toHaveBeenCalledWith('Error', 'Error en credenciales', 'error')
     })
 
+    test('debe de redirigir a la ruta no-entry', async() => {
+        
+        store.dispatch.mockReturnValueOnce({ ok: true })
+
+        const wrapper = shallowMount( LoginView, {
+            global: {
+                plugins: [ store, router ]
+            }
+        })
+
+        const [ txtEmail, txtPassword ] = wrapper.findAll('input')
+        await txtEmail.setValue('fernando@gmail.com')
+        await txtPassword.setValue('123456')
+
+        const push = jest.spyOn(router, 'push')
+        await wrapper.find('form').trigger('submit')
+
+        expect( store.dispatch ).toHaveBeenCalledWith('auth/signInUser', { email: 'fernando@gmail.com', password: '123456' })
+        expect( push ).toHaveBeenCalledWith({ name: 'no-entry' })
+
+    })
+
 })

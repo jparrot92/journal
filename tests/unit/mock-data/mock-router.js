@@ -5,7 +5,12 @@ import router from "@/router"
 const createVueRouter = () => 
     createRouter({
         history: createWebHashHistory(),
-        routes: router.options.routes,
+        routes: [
+            {
+              path: '/',
+              name: 'no-entry',
+              component: () => import(/* webpackChunkName: "daybook-no-entry" */ '@/modules/daybook/views/NoEntrySelected.vue'),
+            }],
     })
 
 export default createVueRouter
